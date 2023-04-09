@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@walletconnect/web3-provider": "^1.8.0",
     "next": "13.2.4",
     "next-auth": "^4.20.1",
     "react": "18.2.0",
@@ -16,6 +17,8 @@
     "react-hook-form": "^7.43.8",
     "react-icons": "^4.8.0",
     "saas": "^1.0.0",
-    "sass": "^1.59.3"
+    "sass": "^1.59.3",
+    "web3": "^1.9.0",
+    "web3modal": "^1.9.12"
   }
 }
