@@ -1,0 +1,37 @@
+.header {
+    display: flex;
+    width: 90%;
+    justify-content: space-between;
+    margin: 0 auto;
+    margin-top: 25px;
+    .logo {
+        // margin-top: 24px;
+    }
+    nav {
+        margin-top: 10px;
+        width: 50%;
+        display: flex;
+        font-size: 18px;
+        justify-content: space-evenly;
+        font-weight: 500;
+    }
+    .sign_buttons{
+        width: 20%;
+        display: flex;
+        justify-content: space-around;
+        // margin-top: 25px;
+        font-weight: 500;
+        .signin_button {
+            margin-top: 10px;
+        }
+        .signup_button {
+            padding: 10px 20px;
+            border-radius: 25px;
+            text-align: center;
+            align-content: center;
+            background-color: #191825;
+            color: #fff;
+            box-shadow: 0px 4px 20px 2px rgba($color: #000000, $alpha: 0.25);
+        }
+    }
+}
