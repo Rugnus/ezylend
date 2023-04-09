@@ -44,6 +44,7 @@ export default function Home() {
               <Image src={"/multiply_card.svg"} width={250} height={250}/>
               <p>Вложение активов</p>
             </div>
+            
           </div>
         </div>
 
