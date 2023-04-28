@@ -2,36 +2,41 @@ import { defaultConfig } from 'next/dist/server/config-shared'
 import Head from 'next/head'
 import Image from 'next/image'
 import AppHeader from '../../components/appHeader'
-import styles from '@/styles/Dashboard.module.scss'
-import Web3 from 'web3'
-import Web3Modal from 'web3modal'
-import WalletConnectProvider from '@walletconnect/web3-provider'
-const provider_options = {
-    walletconnect: {
-        package: WalletConnectProvider,
-        options: {
-            infuraId: "27e484dcd9e3efcfd25a83a78777cdf1",
-        },
-
-    }
-};
-if (typeof window !== "undefined") {
-    const web3modal = new Web3Modal({
-        network: 'mainnet',
-        cacheProvider: true,
-        // providerOptions,
-    })
-}
-else {
-    const web3modal = new Web3Modal({
-        network: 'mainnet',
-        cacheProvider: true,
-        // providerOptions,
-    })
-}
+import styles from '../styles/Dashboard.module.scss'
+import {useState} from 'react'
+import {ethers} from 'ethers'
 
 export default function Dashboard() {
-    
+    const [userAccount, setUserAccount] = useState("")
+    const [balance, setBalance] = 0
+
+    const onConnect = () => {
+        if (window.ethereum) {
+            window.ethereum
+            .request({method: "eth_requestAccounts"})
+            .then((account) => {
+                setUserAccount(account[0]);
+                getBalance(account[0])
+                console.log(account)
+            });
+            window.ethereum.on("accountChanged", onConnect());
+            window.ethereum.on("chainChanged", chainChangedHandler())
+        } else {
+            alert("Установите метамаск!")
+        }
+    }
+
+    const getBalance = (account) => {
+        window.ethereum.request({method: "eth_getBalance", params: [account, "latest"],}).then((balance) => {
+            setBalance(ethers.utils.formatEther(balance))
+            console.log(balance)
+        })
+    }
+
+    const chainChangedHandler = () => {
+        window.location.reload()
+    }
+
     return (
         <div className={styles.body}>
         <style jsx global>{`
@@ -40,7 +45,10 @@ export default function Dashboard() {
         }
         `}</style>
             <AppHeader/>
-            <div className={styles.wallet_section}>
+            {userAccount ? (
+                <span>111</span>
+            ) : (
+                <div className={styles.wallet_section}>
                 <div className={styles.wallet_block}>
                     <Image src={"/wallet.png"} width={460} height={320}/>
                     <div className={styles.wallet_desc}>
@@ -49,15 +57,13 @@ export default function Dashboard() {
                     </div>
                     <div className={styles.wallet_button}>
                         <button className={styles.button}
-                            onClick={async () => {
-                                const provider = await web3modal.connect();
-                                const web3 = new Web3(provider)
-
-                            }}
+                            onClick={onConnect}
                         >Подключить кошелёк</button>
                     </div>
                 </div>
             </div>
+            )}
+            
         </div>
     )
 }

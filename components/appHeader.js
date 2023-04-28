@@ -1,4 +1,4 @@
-import styles from '@/styles/AppHeader.module.scss'
+import styles from '../src/styles/AppHeader.module.scss'
 import { MdSpaceDashboard, MdInput} from 'react-icons/md';
 import { GoGraph } from 'react-icons/go'
 import { FiMoreHorizontal } from 'react-icons/fi'
