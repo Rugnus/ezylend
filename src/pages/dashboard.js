@@ -56,7 +56,7 @@ export default function Dashboard() {
                     </div>
                     <div className={styles.currentBalance}>
                         <h3>Текущий баланс:</h3>
-                        {balance} eth
+                        
                         <div className={styles.balanceTitle}>
                             {/* {changeText()} */}
                             {value ==1 && <span>{balance} ETH</span> }
