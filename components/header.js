@@ -16,7 +16,7 @@ const Header = () => {
             </nav>
             <div className={styles.sign_buttons}>
                 <Link href="/auth/signin" className={styles.signin_button}>Войти</Link>
-                <Link href="" className={styles.signup_button}>Присоединиться</Link>
+                <Link href="/auth/signup" className={styles.signup_button}>Присоединиться</Link>
             </div>
         </header>
     )

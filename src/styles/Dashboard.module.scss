@@ -100,3 +100,69 @@
   .button:active {
     background: linear-gradient(32deg,#03a9f4,#f441a5,#ffeb3b,#03a9f4);
   }
+
+//  IF WALLET CONNECTED
+.dashboardFirstSection {
+  margin: 70px auto 0px auto;
+  width: 90%;
+  height: 20vh;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  color: #fff;
+  // align-items: center;
+  .currentSupplies {
+    background-color: #242F3F;
+    padding: 24px 23px;
+    width: 60%;
+    border-radius: 20px;
+    box-shadow: 0px 4px 30px 5px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+  }
+  .currentBalance {
+    background-color: #242F3F;
+    padding: 24px 23px;
+    width: 30%;
+    border-radius: 20px;
+    box-shadow: 0px 4px 30px 5px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+  }
+
+}
+
+.currentSupplies h3 {
+  font-weight: 500;
+  font-size: 24px;
+}
+.currentSupplies p {
+  margin-top: 20px;
+  opacity: 0.2;
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.currentBalance h3{
+  font-weight: 500;
+  font-size: 24px;
+}
+.currentBalance .balanceTitle {
+  font-weight: 600;
+  font-size: 38px;
+  display: flex;
+  flex-direction: row;
+  margin-top: 20px;
+}
+
+// SELECT BOX EDIT
+
+.currencySelector {
+  width: 20%;
+  margin-left: 20px;
+  color: #fff;
+  background-color: #242F3F;
+  border-radius: 5px;
+  border-width: 1.5px;
+  border-color: rgba($color: #fff, $alpha: 1);
+}

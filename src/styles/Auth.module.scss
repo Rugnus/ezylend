@@ -1,10 +1,14 @@
 .main_section {
     display: flex;
+    background-color: #20262E;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     height: 100vh;
     padding: 10px;
+}
+.pageTitle {
+    color: #fff;
 }
 
 .form_input {
@@ -22,4 +26,20 @@
     transform: scale(1.05);
     box-shadow: 13px 13px 100px #969696,
                -13px -13px 100px #ffffff;
+}
+.form_field {
+    margin-bottom: 10px;
+}
+
+.form_button {
+    width: 100px;
+    height: 30px;
+    border-radius: 20px;
+    text-align: center;
+}
+.form_buttonReg {
+    width: 130px;
+    height: 30px;
+    border-radius: 20px;
+    text-align: center;
 }
