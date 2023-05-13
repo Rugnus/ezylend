@@ -3,7 +3,7 @@ import { signOut, useSession } from "next-auth/react"
 export default function EzyLend() {
     const { data: session } = useSession()
     const user = session?.user;
-    if (user?.role !== "user") {
+    if (user?.role !== "admin") {
         return (
             <section className="grid h-screen place-items-center">
                 <div className="w-25">

@@ -8,7 +8,7 @@ import {ethers} from 'ethers'
 
 export default function Dashboard() {
     const [userAccount, setUserAccount] = useState("")
-    const [balance, setBalance] = useState(1)
+    const [balance, setBalance] = useState(1.25)
     const [value, setValue] = useState(1)
 
     const onConnect = () => {
@@ -25,6 +25,7 @@ export default function Dashboard() {
             alert("Установите кошелек!")
         }
     }
+
 
     // const getBalance = (account) => {
     //     window.ethereum.request({method: "eth_getBalance", params: [account, "latest"],}).then((balance) => {
@@ -59,10 +60,10 @@ export default function Dashboard() {
                         
                         <div className={styles.balanceTitle}>
                             {/* {changeText()} */}
-                            {value ==1 && <span>{balance} ETH</span> }
-                            {value ==2 && <span>{balance * 1770 } $</span> }
-                            {value ==3 && <span>{balance * 15} BTC</span> }
-                            {value ==4 && <span>{1770 * balance * 80} Руб</span> }
+                            {value ==1 && <span className={styles.outerBlock}>{balance} ETH <span className={styles.innerTextBlock}>~{balance * 1770 } $</span> </span> }
+                            {value ==2 && <span className={styles.outerBlock}>{balance * 1770 } $ <span className={styles.innerTextBlock}>~{balance} eth</span></span> }
+                            {value ==3 && <span className={styles.outerBlock}>{balance * 15} BTC <span className={styles.innerTextBlock}>~{balance} eth</span></span> }
+                            {value ==4 && <span className={styles.outerBlock}>{1770 * balance * 80} Руб <span className={styles.innerTextBlock}>~{balance} eth</span></span> }
                             
                             <select className={styles.currencySelector} onChange={(e) => {
                                 setValue(e.target.value)
@@ -76,6 +77,9 @@ export default function Dashboard() {
                             
                         </div>
                         
+                    </div>
+                    <div className={styles.suppliesSection}>
+
                     </div>
                 </div>
             ) : (

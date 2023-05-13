@@ -85,7 +85,7 @@ export async function getServerSideProps(context) {
     const providers = await getProviders()
     if (session) {
         return {
-            redirect: { destination: "/mainScreen" },
+            redirect: { destination: "/dashboard" },
         };
     }
     return {

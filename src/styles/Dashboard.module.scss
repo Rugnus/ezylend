@@ -166,3 +166,12 @@
   border-width: 1.5px;
   border-color: rgba($color: #fff, $alpha: 1);
 }
+
+.outerBlock {
+  display: flex;
+  flex-direction: column;
+  .innerTextBlock {
+    font-size: 14px;
+    opacity: 0.3;
+  }
+}
