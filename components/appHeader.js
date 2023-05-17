@@ -12,14 +12,14 @@ const AppHeader = () => {
         <header className={styles.header}>
             <nav>
                 <ul>
-                    <li className={styles.active}><a href="/"><MdSpaceDashboard className={styles.icon} />Dashboard</a></li>
+                    <li className={styles.active}><a href="/dashboard"><MdSpaceDashboard className={styles.icon} />Dashboard</a></li>
                     <li><a href="/"><MdInput className={styles.icon}/> Stake</a></li>
                     <li><a href="/"><GoGraph className={styles.icon}/>Markets</a></li>
                     <li><a href="/"><FiMoreHorizontal className={styles.icon}/>More</a></li>
                 </ul>
             </nav>
             <div className={styles.user_profile}>
-                <Link href="/"><FaUserCircle className={styles.user_profile_icon}/></Link>
+                <Link href="/userProfile"><FaUserCircle className={styles.user_profile_icon}/></Link>
             </div>
         </header>
     )

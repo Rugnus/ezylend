@@ -50,36 +50,89 @@ export default function Dashboard() {
         `}</style>
             <AppHeader/>
             {userAccount ? (
-                <div className={styles.dashboardFirstSection}>
-                    <div className={styles.currentSupplies}>
-                        <h3>Ваши вклады</h3>
-                        <p>На данный момент у вас нет вкладов</p>
-                    </div>
-                    <div className={styles.currentBalance}>
-                        <h3>Текущий баланс:</h3>
-                        
-                        <div className={styles.balanceTitle}>
-                            {/* {changeText()} */}
-                            {value ==1 && <span className={styles.outerBlock}>{balance} ETH <span className={styles.innerTextBlock}>~{balance * 1770 } $</span> </span> }
-                            {value ==2 && <span className={styles.outerBlock}>{balance * 1770 } $ <span className={styles.innerTextBlock}>~{balance} eth</span></span> }
-                            {value ==3 && <span className={styles.outerBlock}>{balance * 15} BTC <span className={styles.innerTextBlock}>~{balance} eth</span></span> }
-                            {value ==4 && <span className={styles.outerBlock}>{1770 * balance * 80} Руб <span className={styles.innerTextBlock}>~{balance} eth</span></span> }
+                <div>
+                    <div className={styles.dashboardFirstSection}>
+                        <div className={styles.currentSupplies}>
+                            <h3>Ваши вклады</h3>
+                            <p>На данный момент у вас нет вкладов</p>
+                        </div>
+                        <div className={styles.currentBalance}>
+                            <h3>Текущий баланс:</h3>
                             
-                            <select className={styles.currencySelector} onChange={(e) => {
-                                setValue(e.target.value)
-                                }
-                                } required>
-                                <option value="1" selected>ETH</option>
-                                <option value="2" >USD</option>
-                                <option value="3">BTC</option>
-                                <option value="4">RUB</option>
-                            </select>
+                            <div className={styles.balanceTitle}>
+                                {/* {changeText()} */}
+                                {value ==1 && <span className={styles.outerBlock}>{balance} ETH <span className={styles.innerTextBlock}>~{balance * 1770 } $</span> </span> }
+                                {value ==2 && <span className={styles.outerBlock}>{balance * 1770 } $ <span className={styles.innerTextBlock}>~{balance} eth</span></span> }
+                                {value ==3 && <span className={styles.outerBlock}>{balance * 15} BTC <span className={styles.innerTextBlock}>~{balance} eth</span></span> }
+                                {value ==4 && <span className={styles.outerBlock}>{1770 * balance * 80} Руб <span className={styles.innerTextBlock}>~{balance} eth</span></span> }
+                                
+                                <select className={styles.currencySelector} onChange={(e) => {
+                                    setValue(e.target.value)
+                                    }
+                                    } required>
+                                    <option value="1" selected>ETH</option>
+                                    <option value="2" >USD</option>
+                                    <option value="3">BTC</option>
+                                    <option value="4">RUB</option>
+                                </select>
+                                
+                            </div>
                             
                         </div>
                         
                     </div>
                     <div className={styles.suppliesSection}>
-
+                            <h3>Активы для вкладов</h3>
+                            <table>
+                                <tr>
+                                    <th>Актив</th>
+                                    <th>APY</th>
+                                    <th>Может быть залогом</th>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                                <tr>
+                                    <td><Image src={"technologies/btc.svg"} width={25} height={25}/>  Bitcoin</td>
+                                    <td>1.5%</td>
+                                    <td>+</td>
+                                    <td><a className={styles.supplyButton}>Вложить</a></td>
+                                    <td><a className={styles.tokenInfoButton} href='#popup-box'>Об активе</a></td>
+                                </tr>
+                                <tr>
+                                    <td><Image src={"technologies/eth.svg"} width={25} height={25}/>  Ethereum</td>
+                                    <td>3.2%</td>
+                                    <td>+</td>
+                                    <td><a className={styles.supplyButton}>Вложить</a></td>
+                                    <td><a className={styles.tokenInfoButton}>Об активе</a></td>
+                                </tr>
+                                <tr>
+                                    <td><Image src={"technologies/usdt.svg"} width={25} height={25}/>  USDT</td>
+                                    <td>1.78%</td>
+                                    <td>+</td>
+                                    <td><a className={styles.supplyButton}>Вложить</a></td>
+                                    <td><a className={styles.tokenInfoButton}>Об активе</a></td>
+                                </tr>
+                            </table>
+                    </div>
+                    <div className={styles.tokenInfo} id="popup-box">
+                        <div className={styles.popupContent} >
+                            <h4><Image src={"technologies/btc.svg"} width={35} height={35}/>  Bitcoin</h4>
+                            <h5>29423,68$</h5>
+                            <div className={styles.tokenTextInfo}>
+                                <div className={styles.tokenFirstRow}>
+                                    <span>Всего вложено: ? из ?</span>
+                                    <span>APY: 1,5% </span>
+                                </div>
+                                <div className={styles.tokenSecondRow}>
+                                    <span>Всего заимствовано: ? из ?</span>
+                                    <span>APY, variable: 2,3%</span>
+                                </div>
+                                <div className={styles.tokenThirdRow}>
+                                    <span>Коэффициент использования: ?%</span>
+                                </div>
+                            </div>
+                        </div>
+                        <a className={styles.boxClose} href="#">x</a>
                     </div>
                 </div>
             ) : (
