@@ -1,9 +1,14 @@
 import { signOut, useSession } from "next-auth/react"
+import {prisma} from '../../server/db/client'
+import {useState, useEffect} from 'react'
+import styles from '../styles/MainScreen.module.scss'
 
-export default function EzyLend() {
+
+export default function EzyLend({users}) {
+    
     const { data: session } = useSession()
     const user = session?.user;
-    if (user?.role !== "admin") {
+    if (user?.role !== "user") {
         return (
             <section className="grid h-screen place-items-center">
                 <div className="w-25">
@@ -24,6 +29,25 @@ export default function EzyLend() {
                     Logout
                 </button>
             </div>
+            <div className={styles.usersField}>
+                Список пользователей:
+                {/* {userlist} */}
+                {users?.map(user => (
+                                <li key={users.userID}>
+                                    {user.login}
+                                </li>
+                            ))}
+            </div>
         </section>
     )
 }
+
+export async function getServerSideProps() {
+    const users = await prisma.user.findMany()
+    return {
+        props: {
+            users: JSON.parse(JSON.stringify(users)),
+        }
+    }
+}
+

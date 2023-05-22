@@ -5,11 +5,19 @@ import AppHeader from '../../components/appHeader'
 import styles from '../styles/Dashboard.module.scss'
 import {useState} from 'react'
 import {ethers} from 'ethers'
+import {prisma} from '../../server/db/client'
 
-export default function Dashboard() {
+export default function Dashboard({posts}) {
     const [userAccount, setUserAccount] = useState("")
     const [balance, setBalance] = useState(1.25)
     const [value, setValue] = useState(1)
+    // const handleSubmit = async ({language, code}) => {
+    //     const {data} = await axios.post('/api/posts', {
+    //         language,
+    //         code,
+    //     }) 
+    //     console.log(data)
+    // }
 
     const onConnect = () => {
         if (window.ethereum) {
@@ -55,6 +63,12 @@ export default function Dashboard() {
                         <div className={styles.currentSupplies}>
                             <h3>Ваши вклады</h3>
                             <p>На данный момент у вас нет вкладов</p>
+                            <ul></ul>
+                            {posts?.map(post => (
+                                <li key={post.id}>
+                                    {post.title}
+                                </li>
+                            ))}
                         </div>
                         <div className={styles.currentBalance}>
                             <h3>Текущий баланс:</h3>
@@ -154,4 +168,13 @@ export default function Dashboard() {
             
         </div>
     )
+}
+
+export async function getServerSideProps() {
+    const posts = await prisma.post.findMany()
+    return {
+        props: {
+            posts: JSON.parse(JSON.stringify(posts)),
+        }
+    }
 }
