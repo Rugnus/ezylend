@@ -1,5 +1,8 @@
+import { prisma } from "../../../server/db/client";
 import { Users } from "../data/users";
+// import { Users } from "../data/users";
 export default function handler(req, res) {
+    const users = prisma.user.findMany()
     try {
         if (req.method !== 'POST') {
             res.status(405).send({ message: 'Only POST requests allowed' })
