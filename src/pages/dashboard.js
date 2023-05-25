@@ -4,10 +4,15 @@ import Image from 'next/image'
 import AppHeader from '../../components/appHeader'
 import styles from '../styles/Dashboard.module.scss'
 import {useState} from 'react'
+import { signOut, useSession } from "next-auth/react"
 import {ethers} from 'ethers'
 import {prisma} from '../../server/db/client'
+import axios from 'axios'
 
 export default function Dashboard({posts}) {
+    
+    const { data: session, status } = useSession()
+    console.log(session?.user?.userID)
     const [userAccount, setUserAccount] = useState("")
     const [balance, setBalance] = useState(1.25)
     const [value, setValue] = useState(1)
@@ -19,11 +24,23 @@ export default function Dashboard({posts}) {
     //     console.log(data)
     // }
 
+    const onWalletConnected = async (walletAdress, userID=session?.user?.userID) => {
+        console.log(userID)
+        const {data} = await axios.put('/api/users', {
+            userID,
+            walletAdress
+        })
+        console.log(data)
+    }
+    
+
     const onConnect = () => {
         if (window.ethereum) {
             // Есть кошелек
             window.ethereum.request({method: "eth_requestAccounts"}).then((account) =>  {
                  setUserAccount(account[0])
+                 console.log(account[0])
+                 onWalletConnected(account[0])
                 //  getBalance(account[0])
             });
             // Проверяем по слушателю chainChanged, 
@@ -34,6 +51,10 @@ export default function Dashboard({posts}) {
         }
     }
 
+    const user = session?.user;
+    const updateUser = async () => {
+        
+    }
 
     // const getBalance = (account) => {
     //     window.ethereum.request({method: "eth_getBalance", params: [account, "latest"],}).then((balance) => {
@@ -47,6 +68,7 @@ export default function Dashboard({posts}) {
         window.location.reload()
     }
 
+    
 
 
     return (
@@ -174,7 +196,7 @@ export async function getServerSideProps() {
     const posts = await prisma.post.findMany()
     return {
         props: {
-            posts: JSON.parse(JSON.stringify(posts)),
+            posts: JSON.parse(JSON.stringify(posts))
         }
     }
 }
