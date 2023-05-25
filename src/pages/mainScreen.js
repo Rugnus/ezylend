@@ -6,9 +6,11 @@ import styles from '../styles/MainScreen.module.scss'
 
 export default function EzyLend({users}) {
     
-    const { data: session } = useSession()
+    const { data: session, status } = useSession()
     const user = session?.user;
-    if (user?.role !== "user") {
+    console.log(user)
+    // const login = users?.map(user => user.email)
+    if (session?.user?.role !== "User") {
         return (
             <section className="grid h-screen place-items-center">
                 <div className="w-25">

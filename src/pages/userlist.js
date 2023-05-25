@@ -1,9 +1,10 @@
 import { signOut, useSession } from "next-auth/react"
 
 export default function Userlist() {
-    const { data: session } = useSession()
+    const { data: session, status } = useSession()
     const user = session?.user;
-    if (user?.role !== "user") {
+    console.log(user?.role)
+    if (status !== "authenticated") {
         return (
             <section>
                 <div>
