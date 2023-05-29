@@ -12,8 +12,13 @@ const AppHeader = () => {
         <header className={styles.header}>
             <nav>
                 <ul>
-                    <li className={styles.active}><a href="/dashboard"><MdSpaceDashboard className={styles.icon} />Dashboard</a></li>
-                    <li><a href="/"><MdInput className={styles.icon}/> Stake</a></li>
+                    <li className={styles.active}><a href="/dashboard"><MdSpaceDashboard className={styles.icon} />Dashboard</a>
+                        <ul id="submenu" className={styles.submenu}>
+                            <li><a>P2P кредитование</a></li>
+                            <li><a>Заимствование активов</a></li>
+                    </ul>
+                    </li>
+                    <li><a href="/staking"><MdInput className={styles.icon}/>Stake</a></li>
                     <li><a href="/"><GoGraph className={styles.icon}/>Markets</a></li>
                     <li><a href="/"><FiMoreHorizontal className={styles.icon}/>More</a></li>
                 </ul>

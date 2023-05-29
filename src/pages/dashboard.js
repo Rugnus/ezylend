@@ -9,13 +9,13 @@ import {ethers} from 'ethers'
 import {prisma} from '../../server/db/client'
 import axios from 'axios'
 
-export default function Dashboard({posts}) {
-    
+export default function Dashboard({posts, filteredCoins}) {
     const { data: session, status } = useSession()
     console.log(session?.user?.userID)
     const [userAccount, setUserAccount] = useState("")
     const [balance, setBalance] = useState(1.25)
     const [value, setValue] = useState(1)
+    console.log([filteredCoins][0].bitcoin.usd)
     // const handleSubmit = async ({language, code}) => {
     //     const {data} = await axios.post('/api/posts', {
     //         language,
@@ -153,7 +153,7 @@ export default function Dashboard({posts}) {
                     <div className={styles.tokenInfo} id="popup-box">
                         <div className={styles.popupContent} >
                             <h4><Image src={"technologies/btc.svg"} width={35} height={35}/>  Bitcoin</h4>
-                            <h5>29423,68$</h5>
+                            
                             <div className={styles.tokenTextInfo}>
                                 <div className={styles.tokenFirstRow}>
                                     <span>Всего вложено: ? из ?</span>
@@ -194,9 +194,12 @@ export default function Dashboard({posts}) {
 
 export async function getServerSideProps() {
     const posts = await prisma.post.findMany()
+    const res = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin%2Cethereum%2Cusdt&vs_currencies=usd')
+    const filteredCoins = await res.json()
     return {
         props: {
-            posts: JSON.parse(JSON.stringify(posts))
+            posts: JSON.parse(JSON.stringify(posts)),
+            filteredCoins
         }
     }
 }
