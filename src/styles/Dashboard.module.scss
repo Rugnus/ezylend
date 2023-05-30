@@ -279,10 +279,38 @@
   opacity: 1;
 }
 .boxClose {
-  position: absolute;
+  position:absolute;
   top: 0;
   right: 15px;
   color: #fe0606;
   text-decoration: none;
   font-size: 30px;
+}
+
+.supplyForm {
+  display: flex;
+  flex-direction: column;
+  button {
+    max-width: 100px;
+    border-radius: 20px;
+    background-color: #24A27B;
+    border: none;
+    padding: 8px 15px;
+    margin: 10px 10px;
+    font-weight: 400;
+    cursor: pointer;
+    color: #fff;
+  }
+}
+
+.supplyInput {
+  padding: 10px;
+  border-radius: 8px;
+  margin-left: 10px;
+  width: 50%;
+  border: none;
+  box-shadow: 0px 4px 30px 5px rgba(0, 0, 0, 0.3);
+}
+.supplyInput:focus {
+  border: none;
 }

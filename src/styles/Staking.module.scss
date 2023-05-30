@@ -8,6 +8,8 @@
     height: 100%;
     display: flex;
     justify-content: center;
+    align-items: center;
+    flex-direction: column;
     margin-top: 100px;
     .tabs {
         width: 450px;
@@ -134,4 +136,87 @@
     border-radius: 15px;
     background-color: #20262E;
     color: #fff;
+    transition: all 200ms ease-in;
+}
+.stakeButton:hover {
+    background-color: #cffac7;
+    color: #333;
+}
+
+.faq {
+    margin-top: 50px;
+    width: 500px;
+    .faqItem {
+        background-color: #2c3543;
+        border: 2px solid #20262E;
+        
+        border-radius: 15px;
+        box-shadow: 0px 0px 20px 1px rgba(0, 0, 0, 0.4);
+        margin-bottom: 10px;
+        margin-top: 5px;
+    }
+    h2 {
+        color: #fff;
+        text-align: center;
+    }
+}
+
+
+.faqTitle{
+    display: block;
+    cursor: pointer;
+    padding: 15px 20px;
+    color: #fff;
+}
+
+.faqInput {
+    width: 0;
+    height: 0;
+    -webkit-appearance: none;
+    appearance: none;
+
+    position: absolute;
+}
+.faqInput:checked + .faqText {
+    display: block;
+}
+
+
+.faqText {
+    padding: 10px 15px;
+    color: #fff;
+    display: none;
+    font-size: 14px;
+    line-height: 24px;
+    text-align: justify;
+}
+
+.stakeList {
+    margin-top: 5px;
+    border: 1px solid #20262e30;
+    border-radius: 8px;
+    width: 100%;
+    min-height: 200px;
+    ul {
+        line-height: 35px;
+        padding: 10px;
+        list-style-type: none;
+    }
+    ul li {
+        padding: 10px;
+        // border: 1px solid grey;
+        border-radius: 10px;
+        box-shadow: 1px 0px 15px 5px rgba(0,0,0,0.1);
+        margin-top: 15px;
+        margin-bottom: 5px;
+        display: flex;
+        justify-content: space-between;
+    }
+    ul li button {
+        border: none;
+        background-color: #C9A7EB;
+        border-radius: 15px;
+        box-shadow: 1px 0px 15px 5px rgba(0,0,0,0.1);
+        padding: 5px 15px;
+    }
 }
