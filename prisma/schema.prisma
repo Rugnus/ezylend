@@ -24,6 +24,27 @@ model User {
   lastName     String?
   password     String   @db.VarChar(20)
   createdAt    DateTime @default(now())
+  activeStake  ActiveStake[]
+  activeSupply ActiveSupplies[]
+}
+
+model ActiveStake {
+  stakeID      Int      @id @default(autoincrement())
+  user         User     @relation(fields: [userID], references: [userID])
+  userID       Int
+  amount       Float
+  startedAt    DateTime @default(now())
+  blockDuration String
+  blockedUntil DateTime    
+}
+
+model ActiveSupplies {
+  supplyID     Int      @id @default(autoincrement())
+  user         User     @relation(fields: [userID], references: [userID])
+  userID       Int
+  supplyAmount Float
+  currency     String   @unique
+  createdAt    DateTime @default(now())
 }
 
 enum Role {
