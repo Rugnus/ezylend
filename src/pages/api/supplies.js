@@ -7,12 +7,17 @@ export default async function handler(req, res) {
     switch(method){
         case 'POST':
             const {supplyID, userID, supplyAmount, currency, createdAt} = req.body
+            const supplyBTCAPY = '1.5%'
+            const supplyETHAPY = '3.2%'
+            const supplyUSDTAPY = '1.78%'
+            const hasCurrencyBTCCount = await prisma.activeSupplies.count({where: {currency: "BTC"}})
             const hasCurrencyBTC = await prisma.activeSupplies.findMany({where: {currency: "BTC"}})
             console.log(hasCurrencyBTC)
-            console.log(hasCurrencyBTC[0].supplyAmount)
             const hasCurrencyETH = await prisma.activeSupplies.findMany({where: {currency: "ETH"}})
+            const hasCurrencyETHCount = await prisma.activeSupplies.count({where: {currency: "ETH"}})
             const hasCurrencyUSDT = await prisma.activeSupplies.findMany({where: {currency: "USDT"}})
-            if (hasCurrencyBTC && currency == "BTC") {
+            const hasCurrencyUSDTCount = await prisma.activeSupplies.count({where: {currency: "USDT"}})
+            if (hasCurrencyBTCCount >= 1 && currency == "BTC") {
                 const updateSupply = await prisma.activeSupplies.update({
                     where: {
                         currency: "BTC"
@@ -22,7 +27,7 @@ export default async function handler(req, res) {
                     }
                 })
                 res.status(201).json(updateSupply)
-            } else if (hasCurrencyETH && currency == "ETH") {
+            } else if (hasCurrencyETHCount >= 1 && currency == "ETH") {
                 const updateSupply = await prisma.activeSupplies.update({
                     where: {
                         currency: "ETH"
@@ -32,7 +37,7 @@ export default async function handler(req, res) {
                     }
                 })
                 res.status(201).json(updateSupply)
-            } else if (hasCurrencyUSDT && currency == "USDT") {
+            } else if (hasCurrencyUSDTCount >= 1 && currency == "USDT") {
                 const updateSupply = await prisma.activeSupplies.update({
                     where: {
                         currency: "USDT"
@@ -42,14 +47,41 @@ export default async function handler(req, res) {
                     }
                 })
                 res.status(201).json(updateSupply)
-            } else {
+            } else if (currency == 'BTC'){
                 const post = await prisma.activeSupplies.create({
                     data: {
                         supplyID,
                         userID,
                         supplyAmount,
                         currency,
-                        createdAt
+                        createdAt,
+                        APY: supplyBTCAPY
+                    }
+                })
+                res.status(201).json(post)
+            }
+            else if (currency == 'ETH'){
+                const post = await prisma.activeSupplies.create({
+                    data: {
+                        supplyID,
+                        userID,
+                        supplyAmount,
+                        currency,
+                        createdAt,
+                        APY: supplyETHAPY
+                    }
+                })
+                res.status(201).json(post)
+            }
+            else if (currency == 'USDT'){
+                const post = await prisma.activeSupplies.create({
+                    data: {
+                        supplyID,
+                        userID,
+                        supplyAmount,
+                        currency,
+                        createdAt,
+                        APY: supplyUSDTAPY
                     }
                 })
                 res.status(201).json(post)

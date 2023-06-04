@@ -1,15 +1,13 @@
-import { defaultConfig } from 'next/dist/server/config-shared'
 import Head from 'next/head'
 import Image from 'next/image'
 import AppHeader from '../../components/appHeader'
 import styles from '../styles/Dashboard.module.scss'
 import {useState} from 'react'
 import { signOut, useSession } from "next-auth/react"
-import {ethers} from 'ethers'
 import {prisma} from '../../server/db/client'
 import axios from 'axios'
 
-export default function Dashboard({posts, filteredCoins, supplies}) {
+export default function Dashboard({posts, filteredCoins, supplies, suppliesCount}) {
     const { data: session, status } = useSession()
     console.log(session?.user?.userID)
     const [userAccount, setUserAccount] = useState("")
@@ -118,14 +116,44 @@ export default function Dashboard({posts, filteredCoins, supplies}) {
                         <div className={styles.currentSupplies}>
                             <h3>Ваши вклады</h3>
                             {/* <p>На данный момент у вас нет вкладов</p> */}
-                            <ul>
+                            {/* <ul>
+                                <div>
+                                <span>Кол-во</span>
+                                <span>Валюта</span>
+                                <span>APY</span>
+
+                                </div>
                                 {supplies?.map(supply => (
                                     supplies.userID == currUID.userID && <li key={supply.supplyID}>
-                                        {supply.supplyAmount}
-                                        {supply.currency}
+                                        <span>{supply.supplyAmount}</span>
+                                        <span>{supply.currency}</span>
+                                        <span>{supply.APY}</span>
+                                        <a>withdraw</a>
                                     </li>
                                 ))}
-                            </ul>
+                            </ul> */}
+                            {suppliesCount > 0 ? (
+                                <table>
+                                <tr className={styles.suppliesTitle}>
+                                    <th>Кол-во</th>
+                                    <th>Валюта</th>
+                                    <th>APR</th>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                            {supplies?.map(supply => (
+                                supplies.userID == currUID.userID && <tr key={supply.supplyID}>
+                                    <td>{supply.supplyAmount}</td>
+                                    <td>{supply.currency}</td>
+                                    <td>{supply.APY}</td>
+                                    <a>Вывести</a>
+                                </tr>
+                            ))}
+                            </table>
+                            ) : (
+                                <p>На данный момент у вас нет активных вкладов</p>
+                            )}
+                            
                         </div>
                         <div className={styles.currentBalance}>
                             <h3>Текущий баланс:</h3>
@@ -306,11 +334,12 @@ export async function getServerSideProps() {
     const res = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin%2Cethereum%2Cusdt&vs_currencies=usd')
     const filteredCoins = await res.json()
     const supplies = await prisma.activeSupplies.findMany()
-
+    const suppliesCount = await prisma.activeSupplies.count()
     return {
         props: {
             posts: JSON.parse(JSON.stringify(posts)),
             supplies: JSON.parse(JSON.stringify(supplies)),
+            suppliesCount: suppliesCount,
             filteredCoins
         }
     }
