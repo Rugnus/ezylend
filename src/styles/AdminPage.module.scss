@@ -1,10 +1,17 @@
+.body {
+    width: 100%;
+    min-height: 100vh;
+    background-color: #B0DAFF;
+    color: #333;
+}
+
 .header {
     width: 100%;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     padding: 0 5%;
-    margin-top: 67px;
+    padding-top: 30px;
     font-size: 18px;
 }
 .header ul {
@@ -13,7 +20,7 @@
     justify-content: space-between;
     li {
         list-style: none;
-        a {color: #fff;display: flex;
+        a {color: #333;display: flex;
             align-items: center;}
     }
     li.active {
@@ -22,6 +29,9 @@
         padding: 14px 51px;
         border-radius: 20px;
         box-shadow: 0px 4px 30px 5px rgba(0, 0, 0, 0.2);
+    }
+    li.active a {
+        color: #fff;
     }
     li:not(.active) {
         margin-top: 14px;
@@ -65,20 +75,53 @@
 	background-color: #1d2533;
 }
 
-.icon {
-    color: #fff;
-    margin-right: 15px;
+.userListSection {
+    margin: 50px 5%;
+    table {
+        margin-top: 10px;
+    }
+    table, th, td {
+        border: 1px solid #333;
+    }
+    table th, table td {
+        padding: 10px;
+    }
+    table th {
+        background-color: #19A7CE;
+    }
 }
 
-.user_profile_icon {
-    color: #FFF;
-    margin-top: 14px;
-    margin-right: 5px;
-    cursor: pointer;
-}
-
-.signOut {
-    font-size: 16px;
-    color: #fff;
-    cursor: pointer;
+.notificationsList {
+    margin: 50px 5%;
+    h1 {
+        display: flex;
+        align-items: center;
+    }
+    .notificationCount {
+        margin-left: 20px;
+        margin-top: 5px;
+        border-radius: 50%;
+        width: 30px;
+        height: 30px;
+        background-color: red;
+        color: #fff;
+        font-size: 16px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    table th,table td {
+        border-bottom: 1px solid black;
+        // border-left: 1px solid black;
+        // border-right: 1px solid black;
+    }
+    table th, table td {
+        padding: 15px;
+    }
+    table tr td a {
+        cursor: pointer;
+        padding: 10px;
+        border-radius: 15px;
+        background-color: #19A7CE;
+    }
 }

@@ -4,6 +4,9 @@ import axios from 'axios'
 import {useEffect, useState} from 'react'
 import styles from '../styles/Staking.module.scss'
 import Image from 'next/image'
+import moment from "moment/moment"
+import "moment/locale/ru"
+import { prisma } from "../../server/db/client"
 import AppHeader from '../../components/appHeader'
 
 export default function Staking({filteredCoins, stakes}) {
@@ -99,12 +102,12 @@ export default function Staking({filteredCoins, stakes}) {
             <div className={styles.main_section}>
                 <div className={styles.tabs}>
                     <nav className={styles.tabs_items}>
-                        <a href="#stake" className={styles.tabs_item}><span>Stake</span></a>
-                        <a href="#unstake" className={styles.tabs_item}><span>Unstake</span></a>
+                        <a href="#stake" className={styles.tabs_item}><span>Застейкать</span></a>
+                        <a href="#unstake" className={styles.tabs_item}><span>Вывести</span></a>
                     </nav>
                     <div className={styles.tabs_body}>
                         <div id="stake" className={styles.tabs_block}>
-                            <h3>Stake</h3>
+                            <h3>Стейкинг</h3>
                             <input type="text" pattern="[0-9]" placeholder="0.00 Eth" id="amount" className={styles.amount_input} onChange={(e) => setEthPrice(e.target.value)}>
                             </input>
                             <div className={styles.inputInnerText}>USD Price: ~{(ethPrice * [filteredCoins][0].ethereum.usd).toFixed(2)}$</div>
@@ -133,7 +136,7 @@ export default function Staking({filteredCoins, stakes}) {
                                 <p>Плата за обслуживание: ~{((ethPrice * [filteredCoins][0].ethereum.usd)*0.03).toFixed(3)}$</p>
                             </div>
                             <div className={styles.stakeButton} onClick={addStakeToUser}>
-                                Stake
+                                Вложить
                             </div>
                         </div>
                         <div id="unstake" className={styles.tabs_block}>
@@ -142,10 +145,15 @@ export default function Staking({filteredCoins, stakes}) {
                                 <ul>
                                     {stakes?.map(stake => (
                                     stake.userID == currUser && <li key={stake.stakeID}>
-                                        <span>{stake.amount} ETH</span>
-                                        <span>{stake.blockDuration}</span>
-                                        {stake.blockDuration >= today && <button>Unstake</button>}
-                                        {stake.blockDuration < today && <button disabled>Unstake</button> }
+                                        <div>
+                                            <span>{stake.amount} ETH</span>
+                                            <span>{stake.blockDuration}</span>
+                                        </div>
+                                        <div>
+                                            <span>Заблокировано до: {moment(stake.blockedUntil).locale('ru').format('ll')}</span>
+                                        </div>
+                                        {stake.blockDuration >= today && <button>Вывести</button>}
+                                        {stake.blockDuration < today && <button disabled>Вывести</button> }
                                     </li> 
                                     
                                     ))}

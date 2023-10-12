@@ -1,0 +1,35 @@
+.creditCardBlock {
+    margin-top: 40px;
+    background-color: #242F3F;
+    padding: 30px 30px;
+    width: 80%;
+    box-shadow: 0px 4px 30px 5px rgba(0, 0, 0, 0.2);
+    border-radius: 20px;
+    color: #fff;
+    min-height: 150px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    h2 {
+        font-size: 32px;
+        color: #fff;
+        font-weight: 500;
+    }
+    .creditColumns {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        align-content: center;
+        margin-top: 15px;
+        .button {
+            background-color: #1B9C85;
+            border-radius: 15px;
+            padding: 10px;
+            cursor: pointer;
+        }
+    }
+    .creditCol1 p, .creditCol2 p, .creditCol3 p  {
+        margin-bottom: 20px;
+    }
+}

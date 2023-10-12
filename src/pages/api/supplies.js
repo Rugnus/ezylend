@@ -7,9 +7,9 @@ export default async function handler(req, res) {
     switch(method){
         case 'POST':
             const {supplyID, userID, supplyAmount, currency, createdAt} = req.body
-            const supplyBTCAPY = '1.5%'
-            const supplyETHAPY = '3.2%'
-            const supplyUSDTAPY = '1.78%'
+            const supplyBTCAPY = "1.5"
+            const supplyETHAPY = "3.2%"
+            const supplyUSDTAPY = "1.78%"
             const hasCurrencyBTCCount = await prisma.activeSupplies.count({where: {currency: "BTC"}})
             const hasCurrencyBTC = await prisma.activeSupplies.findMany({where: {currency: "BTC"}})
             console.log(hasCurrencyBTC)

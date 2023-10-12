@@ -11,7 +11,7 @@ export default function Dashboard({posts, filteredCoins, supplies, suppliesCount
     const { data: session, status } = useSession()
     console.log(session?.user?.userID)
     const [userAccount, setUserAccount] = useState("")
-    const [balance, setBalance] = useState(1.25)
+    const [balance, setBalance] = useState(0.76)
     const [supplyValue, setSupplyValue] = useState(0)
     const [value, setValue] = useState(1)
     console.log([filteredCoins][0].bitcoin.usd)
@@ -80,6 +80,7 @@ export default function Dashboard({posts, filteredCoins, supplies, suppliesCount
     }
 
     const postETHSupply = async ({userID = currUID, supplyAmount=parseFloat(supplyValue), currency = "ETH",  createdAt = newDate}) => { 
+        // setBalance(balance - supplyValue)
         const {data} = await axios.post('api/supplies', {
             userID,
             supplyAmount,
@@ -87,7 +88,7 @@ export default function Dashboard({posts, filteredCoins, supplies, suppliesCount
             createdAt
         })
         console.log(data)
-        location.reload()
+        // location.reload()
     }
 
     const postUSDTSupply = async ({userID = currUID, supplyAmount=parseFloat(supplyValue), currency = "USDT",  createdAt = newDate}) => {
@@ -110,7 +111,7 @@ export default function Dashboard({posts, filteredCoins, supplies, suppliesCount
         }
         `}</style>
             <AppHeader/>
-            {userAccount ? (
+            {userAccount && status === "authenticated" ? (
                 <div>
                     <div className={styles.dashboardFirstSection}>
                         <div className={styles.currentSupplies}>
@@ -310,19 +311,31 @@ export default function Dashboard({posts, filteredCoins, supplies, suppliesCount
                 </div>
             ) : (
                 <div className={styles.wallet_section}>
-                <div className={styles.wallet_block}>
-                    <Image src={"/wallet.png"} width={460} height={320}/>
-                    <div className={styles.wallet_desc}>
-                        <h3>Пожалуйста, подключите свой кошелек</h3>
-                        <p>Пожалуйста, подключите свой кошелек, чтобы увидеть свои вклады, займы и открытые позиции. </p>
+                { status === "authenticated" ? (
+                    <div className={styles.wallet_block}>
+                        <Image src={"/wallet.png"} width={460} height={320}/>
+                        <div className={styles.wallet_desc}>
+                            <h3>Пожалуйста, подключите свой кошелек</h3>
+                            <p>Пожалуйста, подключите свой кошелек, чтобы увидеть свои вклады, займы и открытые позиции. </p>
+                        </div>
+                        <div className={styles.wallet_button}>
+                            <button className={styles.button}
+                                onClick={onConnect}
+                            >Подключить кошелёк</button>
+                        </div>
                     </div>
-                    <div className={styles.wallet_button}>
-                        <button className={styles.button}
-                            onClick={onConnect}
-                        >Подключить кошелёк</button>
-                    </div>
+                ) : (<div className={styles.wallet_block}>
+                        <div className={styles.wallet_desc}>
+                            <h3>Вы не вошли в аккаунт!</h3>
+                            <p>Пожалуйста, войдите в аккаунт чтобы пользоваться всеми функциями сервиса</p>
+                        </div>
+                        <div className={styles.wallet_button}>
+                            <button className={styles.button}
+                            ><a href="/auth/signin">Войти</a></button>
+                        </div>
+                    </div>)}
+                    
                 </div>
-            </div>
             )}
             
         </div>

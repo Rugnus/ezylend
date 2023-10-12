@@ -27,6 +27,7 @@
   },
   "devDependencies": {
     "@types/react": "18.2.6",
+    "moment": "^2.29.4",
     "typescript": "5.0.4"
   }
 }

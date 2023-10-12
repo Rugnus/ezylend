@@ -26,6 +26,10 @@ model User {
   createdAt    DateTime @default(now())
   activeStake  ActiveStake[]
   activeSupply ActiveSupplies[]
+  creditorApplications CreditorApplications[]
+  activeCredits CreditsList[]
+
+  @@unique([userID, login])
 }
 
 model ActiveStake {
@@ -46,6 +50,31 @@ model ActiveSupplies {
   currency     String   @unique
   APY          String?
   createdAt    DateTime @default(now())
+}
+
+model CreditorApplications {
+  id           Int      @id @default(autoincrement())
+  user         User     @relation(fields: [userID, userLogin], references: [userID, login])
+  userID       Int     
+  userLogin    String   @db.VarChar(20)
+  email        String   
+  walletAdress String  @db.VarChar(100)
+  role         Role
+  sentAt       DateTime @default(now())
+}
+
+model CreditsList {
+  id           Int      @id @default(autoincrement())
+  user         User     @relation(fields: [userID, userLogin], references: [userID, login])
+  userID       Int
+  userLogin    String   @db.VarChar(20)
+  creditAmount Float
+  currency     String
+  creditDuration String
+  interestRate     Float
+  depositAmount    Float @default(0)
+  fixPaidAmount    Float
+  createdAt        DateTime  @default(now())
 }
 
 enum Role {

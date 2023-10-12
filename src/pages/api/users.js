@@ -9,6 +9,7 @@ export default async function handler(req, res) {
         case 'POST':
             const newID = await prisma.user.count + 1
             const {userID, login, firstName, lastName, email, password} = req.body
+            console.log(login)
             const post = await prisma.user.create({
                 data: {
                     userID,

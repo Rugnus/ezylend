@@ -2,10 +2,13 @@ import { useRef, useState } from "react";
 import { getProviders, getSession, signIn } from "next-auth/react"
 import styles from "../../styles/Auth.module.scss"
 import axios from "axios";
+import { redirect } from "next/navigation";
+import { useRouter } from "next/router";
 
 
-export default function Signup() {
+export default function Signup({providers}) {
     const [emailC, setEmail] = useState("");
+    const { push } = useRouter;
     const [passwordC, setPassword] = useState("");
     const [loginC, setLogin] = useState("")
     const [firstNameC, setFirstName] = useState("")
@@ -107,7 +110,7 @@ export async function getServerSideProps(context) {
     const providers = await getProviders()
     if (session) {
         return {
-            redirect: { destination: "/dashboard" },
+            redirect: { destination: "/signin" },
         };
     }
     return {

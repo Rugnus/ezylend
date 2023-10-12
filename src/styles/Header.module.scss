@@ -15,6 +15,9 @@
         justify-content: space-evenly;
         font-weight: 500;
     }
+    nav a {
+        color: #333;
+    }
     .sign_buttons{
         width: 20%;
         display: flex;
@@ -23,6 +26,7 @@
         font-weight: 500;
         .signin_button {
             margin-top: 10px;
+            color: #333;
         }
         .signup_button {
             padding: 10px 20px;
